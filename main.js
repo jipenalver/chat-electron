@@ -3,8 +3,6 @@ const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
 const axios = require('axios');
 const dotenv = require('dotenv').config();
-const FormData = require('form-data');
-const fs = require('fs');
 
 // Global Variables
 const isDev = true;
@@ -130,9 +128,7 @@ function logsWindow () {
 app.whenReady().then(() => {
   // Initialize Functions
   ipcMain.handle('axios.openAI', openAI);
-  ipcMain.handle('axios.tesseract', tesseract);
-  ipcMain.handle('axios.supaBase', supaBase);
-  ipcMain.handle('axios.backendLaravel', backendLaravel);
+  ipcMain.handle('axios.backend', backend);
 
   // Create Main Window
   createWindow();
@@ -184,58 +180,8 @@ async function openAI(event, sentence, tools_type){
   return result;
 }
 
-// Axios Tesseract API
-async function tesseract(event, filepath){
-  let result = null;
-
-  var formData = new FormData();
-  formData.append("image", fs.createReadStream(filepath));
-
-  await axios.post('http://backend.test/api/ocr', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(function (response) {
-      result = response.data;
-    })
-    .catch(function (error) {
-      result = error.response.data;
-    });
-
-  return result;
-}
-
-// Axios Supabase API
-async function supaBase(event, method, id = '', data = null){
-  let result = null;
-  const env = dotenv.parsed;
-
-  let query = ( method == 'get' ? '?select=*' : (method == 'delete' ? '?prompt_id=eq.' + id : '') );
-  await axios({
-      method: method,
-      url: 'https://lsuibxpvxqrxhkmxcmwy.supabase.co/rest/v1/prompts' + query,
-      headers: ( method == 'post' ? {
-          'apikey': env.APIKEY_SUPABASE,
-          'Authorization': 'Bearer ' + env.APIKEY_SUPABASE,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        } : {
-          'apikey': env.APIKEY_SUPABASE,
-          'Authorization': 'Bearer ' + env.APIKEY_SUPABASE 
-        } ),
-      data: ( method == 'post' ? data : null )
-    }).then(function (response) {
-      result = response.data;
-    })
-    .catch(function (error) {
-      result = error.response.data;
-    });
-
-  return result;
-}
-
 // Axios Laravel API
-async function backendLaravel(event, method, path, data = null, token = ''){
+async function backend(event, method, path, data = null, token = ''){
   let result = null;
 
   await axios({
