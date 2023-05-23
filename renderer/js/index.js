@@ -1,80 +1,88 @@
-// Extract Text from Image
-const btn_extract = document.getElementById("btn_extract");
-if (btn_extract) {
-  btn_extract.onclick = async function () {
-    const file = document.getElementById("file_extract").files[0];
-
-    const file_types = ['image/png', 'image/bmp', 'image/jpeg'];
-    if ( !file || !file_types.includes(file['type']) ) {
-      alertMessage("error", "Please upload an image with (png, bmp, jpeg) format!");
+// Initialize Conversation Array
+let conversation = [];
+// Btn Submit
+const btn_submit = document.getElementById("btn_submit");
+if (btn_submit) {
+  btn_submit.onclick = async function (e) {
+    // Get Text from Message
+    const txt_message = document.getElementById('txt_message');
+    let message = txt_message.value;
+    txt_message.value = '';
+    // Check if text is not empty
+    if (message.length < 2) {
+      alertMessage("error", "Please type any message!");
       return;
     }
-
-    btn_extract.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-    btn_extract.disabled = true;
-
-    const response = await window.axios.tesseract(file.path);
-    document.querySelector("textarea[name='sentence-img']").innerHTML = response.text;
-    
-    btn_extract.innerHTML = 'Extract Text';
-    btn_extract.disabled = false;
+    // Set Load on Button
+    btn_submit.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>';
+    btn_submit.disabled = true;
+    // Set conversation if there are already
+    let convo = '';
+    if (Object.keys(conversation).length >= 1) {
+      Object.keys(conversation).forEach(key => {
+        convo += 'You: ' + conversation[key].You + '\nJunjun: ' + conversation[key].Junjun + '\n';
+      });
+      convo += 'You: ' + message + '\nJunjun: ';
+    }
+    else {
+      convo = 'You: ' + message + '\nJunjun: ';
+    }
+    // Access OpenAI alongside the prompt
+    const response = await window.axios.openAI(convo);
+    // Check Error if it exist
+    if( response.error ) {
+      alertMessage("error", response.error.message);
+      return;
+    }
+    // Set AI Response
+    let result = response.choices[0].text.trim();
+    console.log(convo + result);
+    conversation.push({
+      You: message,
+      Junjun: result
+    });
+    // Concatenate AI Response
+    // conversation += response.choices[0].text + '\n';
+    // Display Conversation
+    // setChatbox(conversation);
+    // Store to database the prompt and result
+    // const backend = await window.axios.backend('post', 'login', {
+    //   email: formData.get("email"),
+    //   password: formData.get("password"),
+    // } );
+    // Enable Submit Button
+    btn_submit.innerHTML = '<img src="./images/ic_plane.png" width="30" height="30" alt="">';
+    btn_submit.disabled = false;
   };
 }
 
-// Form Submit
-const form_openai = document.getElementById("form_openai");
-if (form_openai) {
-  form_openai.onsubmit = async function (e) {
-    e.preventDefault();
+function setChatbox (response) {
+  let htmlResult = '';
+  text.split(" ");
 
-    const btn_submit = document.querySelector("#form_openai button[type='submit']");
-    const formData = new FormData(form_openai);
-    let tools_type = formData.get("tools-type");
-    let extraction_type = document.getElementById("pills-text-tab").classList.contains('active');
-    let sentence = extraction_type ? formData.get("sentence-text") : formData.get("sentence-img");
+  // Object.keys(response).forEach(key => {
+  //     let date = new Date(response[key].created_at.replace(' ', 'T'));
 
-    if (tools_type == null) {
-      alertMessage("error", "Please choose OpenAI Tools!");
-      return;
-    }
+  //     htmlResult += '<tr>' +
+  //         '<th scope="row">' +  response[key].prompt_id + '</th>' +
+  //         '<td>' + response[key].tools_type + '</td>' +
+  //         '<td>' + response[key].text + '</td>' +
+  //         '<td>' + response[key].result + '</td>' +
+  //         '<td>' + date.toLocaleString('en-US', { timeZone: 'UTC' }) + '</td>' +
+  //         '<td>' + 
+  //             '<div class="btn-group" role="group">' +
+  //                 '<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">' +
+  //                     'Action' +
+  //                 '</button>' +
+  //                 '<ul class="dropdown-menu">' +
+  //                     '<li><a id="btn_prompts_del" class="dropdown-item" href="#" name="' + response[key].prompt_id + '">Remove</a></li>' +
+  //                 '</ul>' +
+  //             '</div>' +
+  //     '</tr>';
+  // });
 
-    if (sentence.length <= 8) {
-      alertMessage("error", "Please input text at least 8 characters or upload image to extract text!");
-      return;
-    }
-
-    btn_submit.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Loading...';
-    btn_submit.disabled = true;
-
-    // Access OpenAI alongside the prompt
-    const response = await window.axios.openAI(sentence, tools_type);
-
-    // Show Div Result
-    const div_result = document.querySelector("#div-result");
-    div_result.classList.remove('d-none');
-    div_result.classList.add('d-block');
-
-    // Check Error if it exist
-    if( response.error ) {
-      document.querySelector("#div-result textarea").innerHTML = response.error.message;
-      return;
-    }
-
-    // Provide result if there are no error
-    let result = response.choices[0].text;
-    document.querySelector("#div-result textarea").innerHTML = result.replace(/\n/g, "");
-    
-    // Store to database the prompt and result
-    const db_response = await window.axios.supaBase('post', '', {
-        text: sentence,
-        result: result,
-        tools_type: tools_type
-      });
-    console.log(db_response);
-    
-    btn_submit.innerHTML = 'Process Text';
-    btn_submit.disabled = false;
-  };
+  const tbody = document.getElementById('tbl_prompts');
+  tbody.innerHTML = htmlResult;
 }
 
 // Alert Message

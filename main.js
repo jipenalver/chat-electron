@@ -150,7 +150,7 @@ app.on("window-all-closed", () => {
 
 // Main Functions
 // Axios OpenAI API
-async function openAI(event, sentence, tools_type){
+async function openAI(event, conversation){
   let result = null;
 
   const env = dotenv.parsed;
@@ -159,11 +159,11 @@ async function openAI(event, sentence, tools_type){
       url: 'https://api.openai.com/v1/completions',
       data: {
         model: "text-davinci-003",
-        prompt: ( tools_type == 'Grammar Correction' ? "Correct this to standard English:\n\n" : "Summarize this for a second-grade student:\n\n" ) +  sentence,
-        temperature: ( tools_type == 'Grammar Correction' ? 0 : 0.7 ),
-        max_tokens: ( tools_type == 'Grammar Correction' ? 60 : 64 ),
-        top_p: 1.0,
-        frequency_penalty: 0.0,
+        prompt: "Junjun is a chatbot that reluctantly answers questions with sarcastic responses:\n\n" + conversation,
+        temperature: 0.5,
+        max_tokens: 60,
+        top_p: 0.3,
+        frequency_penalty: 0.5,
         presence_penalty: 0.0
       },
       headers: {
