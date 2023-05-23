@@ -14,7 +14,7 @@ if (btn_submit) {
       return;
     }
     // Set Load on Button
-    btn_submit.innerHTML = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>';
+    btn_submit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
     btn_submit.disabled = true;
     // Set conversation if there are already
     let convo = '';
@@ -28,61 +28,60 @@ if (btn_submit) {
       convo = 'You: ' + message + '\nJunjun: ';
     }
     // Access OpenAI alongside the prompt
-    const response = await window.axios.openAI(convo);
+    const result = await window.axios.openAI(convo);
     // Check Error if it exist
-    if( response.error ) {
-      alertMessage("error", response.error.message);
+    if( result.error ) {
+      alertMessage("error", result.error.message);
       return;
     }
     // Set AI Response
-    let result = response.choices[0].text.trim();
-    console.log(convo + result);
+    let response = result.choices[0].text.trim();
+    console.log(convo + response);
     conversation.push({
       You: message,
-      Junjun: result
+      Junjun: response
     });
-    // Concatenate AI Response
-    // conversation += response.choices[0].text + '\n';
-    // Display Conversation
-    // setChatbox(conversation);
     // Store to database the prompt and result
-    // const backend = await window.axios.backend('post', 'login', {
-    //   email: formData.get("email"),
-    //   password: formData.get("password"),
-    // } );
+    const store_response = await window.axios.backend('post', 'prompts', {
+      message: message,
+      response: response,
+    });
+    console.log(store_response);
+    // Reload Chatbox
+    setChatbox();
     // Enable Submit Button
     btn_submit.innerHTML = '<img src="./images/ic_plane.png" width="30" height="30" alt="">';
     btn_submit.disabled = false;
   };
 }
 
-function setChatbox (response) {
+// Load Chatbox
+setChatbox();
+// Callback Func for Chatbox
+async function setChatbox () {
+  // Retrieve Data from Backend API's Database
+  const response = await window.axios.backend('get', 'prompts');
+  // Load result in Div
   let htmlResult = '';
-  text.split(" ");
-
-  // Object.keys(response).forEach(key => {
-  //     let date = new Date(response[key].created_at.replace(' ', 'T'));
-
-  //     htmlResult += '<tr>' +
-  //         '<th scope="row">' +  response[key].prompt_id + '</th>' +
-  //         '<td>' + response[key].tools_type + '</td>' +
-  //         '<td>' + response[key].text + '</td>' +
-  //         '<td>' + response[key].result + '</td>' +
-  //         '<td>' + date.toLocaleString('en-US', { timeZone: 'UTC' }) + '</td>' +
-  //         '<td>' + 
-  //             '<div class="btn-group" role="group">' +
-  //                 '<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">' +
-  //                     'Action' +
-  //                 '</button>' +
-  //                 '<ul class="dropdown-menu">' +
-  //                     '<li><a id="btn_prompts_del" class="dropdown-item" href="#" name="' + response[key].prompt_id + '">Remove</a></li>' +
-  //                 '</ul>' +
-  //             '</div>' +
-  //     '</tr>';
-  // });
-
-  const tbody = document.getElementById('tbl_prompts');
-  tbody.innerHTML = htmlResult;
+  Object.keys(response).forEach(count => {
+    htmlResult += '<div class="d-flex flex-row justify-content-start">' +
+                  '<img class="img-you" src="./images/img_you.webp" alt="">' +
+                  '<div>' +
+                    '<p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface">' + response[count].message + '</p>' +
+                    '<p class="small ms-3 mb-3 rounded-3 text-muted">' + response[count].created_at + '</p>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="d-flex flex-row justify-content-end mb-4 pt-1">' +
+                  '<div>' +
+                    '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + response[count].response + '</p>' +
+                    '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + response[count].created_at + '</p>' +
+                  '</div>' +
+                  '<img class="img-junjun" src="./images/img_junjun.webp" alt="">' +
+                '</div>';
+  });
+  // Display Result in Div
+  const div_conversation = document.getElementById('div-conversation');
+  div_conversation.innerHTML = htmlResult;
 }
 
 // Alert Message
