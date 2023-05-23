@@ -22,3 +22,36 @@
 .form-textarea{
     height: 125px !important;
 }
+
+/* Chat-Area */
+
+.chat-area .card-body {
+    position: relative;
+    height: 400px;
+    overflow: scroll;
+}
+
+.chat-area img.img-you,
+.chat-area img.img-junjun {
+    width: 40px; 
+    height: 100%;
+}
+
+/* MDB-Default */
+
+.div-chat .form-control {
+    border-color: transparent;
+}
+
+.div-chat .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.div-chat .divider:after,
+.div-chat .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}

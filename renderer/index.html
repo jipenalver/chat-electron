@@ -16,98 +16,128 @@
   </head>
   <body class="theme-bg-surface">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-dark bg-body">
-      <div class="container-fluid">
-        <a class="navbar-brand text-dark fw-bold" href="#">
-          <img src="./images/ic_logo.png" alt="Logo" width="30" height="28" class="d-inline-block align-text-top">
-          JunJun - The Sarcastic Chatbot
-        </a>
-      </div>
-    </nav>
-
-    <!-- Container -->
-    <div class="container theme-bg-primary p-5 mt-3 text-center">
-      <img class="w-25 h-25 mb-5" src="./images/img_logo.png">
-
-      <form id="form_openai">
-        <!-- Tools Type -->
-        <div class="row mb-3 text-start">
-          <label class="fw-bold">OpenAI Tools</label>
-          <div class="col">
-            <div class="form-check">
-              <input class="form-check-input mt-3" type="radio" name="tools-type" value="Grammar Correction" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                <img class="w-100 h-75" src="./images/img_tool_grammar.png">
-              </label>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-check">
-              <input class="form-check-input mt-3" type="radio" name="tools-type" value="Summarize for 2nd Grader" id="flexRadioDefault2">
-              <label class="form-check-label" for="flexRadioDefault2">
-                <img class="w-100 h-75" src="./images/img_tool_summarize.png">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Extraction Type -->
-        <div class="row mb-3 text-start">
-          <label class="fw-bold">Type of Extraction</label>
-        </div>
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active fw-bold" id="pills-text-tab" data-bs-toggle="pill" data-bs-target="#pills-text" type="button" role="tab" aria-controls="pills-text" aria-selected="true">Text</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link fw-bold" id="pills-image-tab" data-bs-toggle="pill" data-bs-target="#pills-image" type="button" role="tab" aria-controls="pills-image" aria-selected="false">Image</button>
-          </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-          <!-- Type: Text Only -->
-          <div class="tab-pane fade show active" id="pills-text" role="tabpanel" aria-labelledby="pills-text-tab" tabindex="0">
-            <div class="card card-body">
-              <div class="form-floating mb-3">
-                <textarea class="form-control form-textarea" name="sentence-text"></textarea>
-                <label class="fw-bold" for="floatingTextarea">Text</label>
-              </div>
-            </div>
-          </div>
-          <!-- Type: Image -->
-          <div class="tab-pane fade" id="pills-image" role="tabpanel" aria-labelledby="pills-image-tab" tabindex="0">
-            <div class="card card-body">
-              <div class="row mb-3">
-                <div class="col">
-                  <input class="form-control fw-bold" type="file" id="file_extract">
-                </div>
-                <div class="col">
-                  <button class="btn btn-primary w-100 fw-bold" type="button" id="btn_extract">Extract Text</button>
-                </div>
-              </div>
+    <!-- Chat-Area -->
+    <section class="chat-area">
+      <div class="container py-5 mt-3 theme-bg-primary">
     
-              <div class="form-floating mb-3">
-                <textarea class="form-control form-textarea" name="sentence-img"></textarea>
-                <label class="fw-bold" for="floatingTextarea">Extracted Text</label>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-6">
+    
+            <div class="card div-chat">
+              <div class="card-header d-flex justify-content-between align-items-center p-3">
+                <h5 class="mb-0 fw-bold">JunJun - Sarcastic Chatbot</h5>
+                <button type="button" class="btn btn-primary btn-sm text-dark fw-bold">
+                  <img src="./images/ic_logo.png" alt="Logo" width="30" height="28">
+                  Powered by OpenAI
+                </button>
+              </div>
+              <div class="card-body">
+    
+                <div class="d-flex flex-row justify-content-start">
+                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface">Hi</p>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >How are you ...???
+                    </p>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >What are you doing
+                      tomorrow? Can we come up a bar?</p>
+                    <p class="small ms-3 mb-3 rounded-3 text-muted">23:58</p>
+                  </div>
+                </div>
+    
+                <div class="divider d-flex align-items-center mb-4">
+                  <p class="text-center mx-3 mb-0">Today</p>
+                </div>
+    
+                <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                  <div>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">How are you doing?</p>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Long time no see! Tomorrow
+                      office. will
+                      be free on sunday.</p>
+                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:06</p>
+                  </div>
+                  <img class="img-junjun" src="./images/img_junjun.webp" alt="">
+                </div>
+    
+                <div class="d-flex flex-row justify-content-start mb-4">
+                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >Okay</p>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >We will go on
+                      Sunday?</p>
+                    <p class="small ms-3 mb-3 rounded-3 text-muted">00:07</p>
+                  </div>
+                </div>
+    
+                <div class="d-flex flex-row justify-content-end mb-4">
+                  <div>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">That's awesome!</p>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">I will meet you Sandon Square
+                      sharp at
+                      10 AM</p>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Is that okay?</p>
+                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:09</p>
+                  </div>
+                  <img class="img-junjun" src="./images/img_junjun.webp" alt="">
+                </div>
+    
+                <div class="d-flex flex-row justify-content-start mb-4">
+                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >Okay i will meet
+                      you on
+                      Sandon Square</p>
+                    <p class="small ms-3 mb-3 rounded-3 text-muted">00:11</p>
+                  </div>
+                </div>
+    
+                <div class="d-flex flex-row justify-content-end mb-4">
+                  <div>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Do you have pictures of Matley
+                      Marriage?</p>
+                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:11</p>
+                  </div>
+                  <img class="img-junjun" src="./images/img_junjun.webp" alt="">
+                </div>
+    
+                <div class="d-flex flex-row justify-content-start mb-4">
+                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface" >Sorry I don't
+                      have. i
+                      changed my phone.</p>
+                    <p class="small ms-3 mb-3 rounded-3 text-muted">00:13</p>
+                  </div>
+                </div>
+    
+                <div class="d-flex flex-row justify-content-end">
+                  <div>
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Okay then see you on sunday!!
+                    </p>
+                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:15</p>
+                  </div>
+                  <img class="img-junjun" src="./images/img_junjun.webp" alt="">
+                </div>
+    
+              </div>
+              <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <input id="chat_message" type="text" class="form-control form-control-lg" placeholder="Type message">
+                  <a id="chat_submit" class="ms-3 btn btn-primary">
+                    <img src="./images/ic_plane.png" width="30" height="30" alt="">
+                  </a>
               </div>
             </div>
+    
           </div>
         </div>
-        
-        <!-- Result -->
-        <div class="card card-body mt-3">
-          <button class="btn btn-primary w-25 fw-bold align-self-center" type="submit">Process Text</button>
-          
-          <div id="div-result" class="form-floating mt-3 d-none">
-            <textarea class="form-control form-textarea" readonly></textarea>
-            <label class="fw-bold" for="floatingTextarea">Result</label>
-          </div>
-        </div>
-        
-      </form>
-      <!-- End of Container -->
-    </div>
-
+    
+      </div>
+    </section>
+    <!-- Chat-Area-End -->
+  
     <script src="./js/bootstrap/bootstrap.bundle.min.js"></script>
   </body>
   <script src="./js/index.js"></script>
