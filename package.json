@@ -1,0 +1,28 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend application using Electron with integration of OpenAI Api and Supabase.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianchris2k14/frontend.git"
+  },
+  "author": "Jabez Ian Chris Penalver",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jianchris2k14/frontend/issues"
+  },
+  "homepage": "https://github.com/jianchris2k14/frontend#readme",
+  "devDependencies": {
+    "electron": "^24.1.2"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "toastify-js": "^1.12.0"
+  }
+}
