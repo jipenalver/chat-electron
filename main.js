@@ -33,10 +33,6 @@ const template = [
         label: 'App Logs',
         click: logsWindow
       },
-      {
-        label: 'About',
-        click: aboutWindow
-      },
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
   },
@@ -129,19 +125,6 @@ function logsWindow () {
   }
 
   logs.loadFile(path.join(__dirname, "./renderer/logs.html"));
-}
-
-// About Window
-function aboutWindow () {
-  const about = new BrowserWindow({
-    width: 400,
-    height: 400,
-    alwaysOnTop: true,
-  });
-
-  about.setMenuBarVisibility(false);
-
-  about.loadFile(path.join(__dirname, "./renderer/about.html"));
 }
 
 app.whenReady().then(() => {
