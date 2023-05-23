@@ -7,7 +7,7 @@ const FormData = require('form-data');
 const fs = require('fs');
 
 // Global Variables
-const isDev = false;
+const isDev = true;
 const isMac = process.platform === 'darwin';
 const template = [
   // { role: 'appMenu' }
