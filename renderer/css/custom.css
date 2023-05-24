@@ -26,14 +26,14 @@
 
 /* Chat-Area */
 
-.chat-area .card-body {
+#chat-area .card-body {
     position: relative;
     height: 500px;
     overflow: scroll;
 }
 
-.chat-area img.img-you,
-.chat-area img.img-junjun {
+#chat-area img.img-you,
+#chat-area img.img-junjun {
     width: 40px; 
     height: 100%;
 }

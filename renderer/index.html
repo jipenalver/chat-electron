@@ -16,13 +16,27 @@
   </head>
   <body class="theme-bg-surface">
 
+    <!-- Intro-Area -->
+    <section id="intro-area">
+      <div class="container py-5 mt-5 theme-bg-primary">
+        <!-- Div-Intro -->
+        <div class="card card-body my-5">
+          <img class="w-25 h-25 align-self-center mt-3" src="./images/gif_junjun.gif" alt="Logo">
+          <h2 class="fw-bold text-center">The Sarcastic Chatbot</h2>
+          <button id="btn_continue" class="btn btn-light mb-3 w-50 fw-bold align-self-center">Click Here to Continue</button>
+        </div>
+        <!-- Div-Intro-End -->
+      </div>
+    </section>
+    <!-- Intro-Area-End -->
+
     <!-- Chat-Area -->
-    <section class="chat-area">
+    <section id="chat-area" class="d-none">
       <div class="container py-5 theme-bg-primary">
-    
+        
         <div class="row d-flex justify-content-center">
           <div class="col-md-12 col-lg-8 col-xl-6">
-    
+            <!-- Div-Chat -->
             <div class="card div-chat">
               <div class="card-header d-flex justify-content-between align-items-center p-3">
                 <h5 class="mb-0 fw-bold">Sarcastic Chatbot</h5>
@@ -33,19 +47,16 @@
               </div>
               <div id="div-conversation" class="card-body">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading ...
-                <!-- <div class="divider d-flex align-items-center mb-4">
-                  <p class="text-center mx-3 mb-0">Today</p>
-                </div> -->
               </div>
               <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-                  <img class="img-you" src="./images/img_you.webp" alt="">
+                  <img class="img-you" src="./images/img_you.png" alt="">
                   <input id="txt_message" type="text" class="form-control form-control-lg" placeholder="Type message">
                   <button id="btn_submit" class="ms-3 btn btn-primary">
                     <img src="./images/ic_plane.png" width="30" height="30" alt="">
                   </button>
               </div>
             </div>
-    
+            <!-- Div-Chat-End -->
           </div>
         </div>
     
