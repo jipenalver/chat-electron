@@ -43,9 +43,9 @@ if (btn_submit) {
     });
     // Store to database the prompt and result
     const store_response = await window.axios.backend('post', 'prompts', {
-      message: message,
-      response: response,
-    });
+        message: message,
+        response: response,
+      });
     console.log(store_response);
     // Reload Chatbox
     setChatbox();
@@ -64,17 +64,18 @@ async function setChatbox () {
   // Load result in Div
   let htmlResult = '';
   Object.keys(response).forEach(count => {
+    let created_at = new Date(response[count].created_at).toLocaleString('en-US', { timeZone: 'Asia/Manila' });
     htmlResult += '<div class="d-flex flex-row justify-content-start">' +
                   '<img class="img-you" src="./images/img_you.webp" alt="">' +
                   '<div>' +
                     '<p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface">' + response[count].message + '</p>' +
-                    '<p class="small ms-3 mb-3 rounded-3 text-muted">' + response[count].created_at + '</p>' +
+                    '<p class="small ms-3 mb-3 rounded-3 text-muted">' + created_at + '</p>' +
                   '</div>' +
                 '</div>' +
                 '<div class="d-flex flex-row justify-content-end mb-4 pt-1">' +
                   '<div>' +
                     '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + response[count].response + '</p>' +
-                    '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + response[count].created_at + '</p>' +
+                    '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + created_at + '</p>' +
                   '</div>' +
                   '<img class="img-junjun" src="./images/img_junjun.webp" alt="">' +
                 '</div>';
