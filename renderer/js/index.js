@@ -1,4 +1,4 @@
-// Btn Contine
+// Btn Continue
 const btn_continue = document.getElementById("btn_continue");
 if (btn_continue) {
   btn_continue.onclick = function (e) {
