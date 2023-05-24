@@ -82,6 +82,7 @@ async function setChatbox () {
   // Display Result in Div
   const div_conversation = document.getElementById('div-conversation');
   div_conversation.innerHTML = htmlResult;
+  div_conversation.scrollTo(0, div_conversation.scrollHeight);
 }
 
 // Alert Message
