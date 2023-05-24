@@ -8,6 +8,9 @@ if (btn_continue) {
     intro_area.classList.add('d-none');
     chat_area.classList.remove('d-none');
     chat_area.classList.add('d-flex');
+    // Show Latest Chat
+    const div_conversation = document.getElementById('div-conversation');
+    div_conversation.scrollTo(0, div_conversation.scrollHeight);
   }
 }
 
@@ -89,14 +92,14 @@ async function setChatbox () {
     // Set Time or Date based on Created At
     let date = created_at.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
     let time = created_at.toLocaleTimeString('en-US', { timeZone: 'Asia/Manila' });
-    htmlResult += '<div class="d-flex flex-row justify-content-end mb-4 pt-1">' +
+    htmlResult += '<div class="d-flex flex-row justify-content-end">' +
                   '<div>' +
                     '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + response[count].message + '</p>' +
                     '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + ( isToday ? time : date ) + '</p>' +
                   '</div>' +
                   '<img class="img-junjun" src="./images/img_you.png" alt="">' +
                 '</div>' +
-                '<div class="d-flex flex-row justify-content-start">' +
+                '<div class="d-flex flex-row justify-content-start mb-4 pt-1">' +
                   '<img class="img-you" src="./images/img_junjun.png" alt="">' +
                   '<div>' +
                     '<p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface">' + response[count].response + '</p>' +

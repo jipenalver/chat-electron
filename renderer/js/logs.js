@@ -103,7 +103,7 @@ async function getPrompts () {
     Object.keys(response).forEach(count => {
         let created_at = new Date(response[count].created_at).toLocaleString('en-US', { timeZone: 'Asia/Manila' });
         htmlResult += '<tr>' +
-            '<th scope="row">' +  (parseInt(count) + 1) + '</th>' +
+            '<th scope="row">' +  response[count].prompt_id + '</th>' +
             '<td>' + response[count].message + '</td>' +
             '<td>' + response[count].response + '</td>' +
             '<td>' + created_at + '</td>' +
