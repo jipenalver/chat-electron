@@ -1,3 +1,4 @@
+/* Utilities */
 
 .theme-bg-surface{
     background-color: #F6F1F1 !important;
@@ -21,4 +22,37 @@
 
 .form-textarea{
     height: 125px !important;
+}
+
+/* Chat-Area */
+
+#chat-area .card-body {
+    position: relative;
+    height: 500px;
+    overflow: scroll;
+}
+
+#chat-area img.img-you,
+#chat-area img.img-junjun {
+    width: 40px; 
+    height: 100%;
+}
+
+/* Chat-Div */
+
+.div-chat .form-control {
+    border-color: transparent;
+}
+
+.div-chat .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.div-chat .divider:after,
+.div-chat .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
 }
