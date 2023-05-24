@@ -63,19 +63,30 @@ async function setChatbox () {
   const response = await window.axios.backend('get', 'prompts');
   // Load result in Div
   let htmlResult = '';
+  let isToday = false;
   Object.keys(response).forEach(count => {
-    let created_at = new Date(response[count].created_at).toLocaleString('en-US', { timeZone: 'Asia/Manila' });
+    let created_at = new Date(response[count].created_at);
+    // Check the created date if it is today's date
+    if ( created_at.getDate() == new Date().getDate() && !isToday ) {
+      htmlResult += '<div class="divider d-flex align-items-center mb-4">' +
+                      '<p class="text-center mx-3 mb-0">Today</p>' +
+                    '</div>';
+      isToday = true;
+    }
+    // Set Time or Date based on Created At
+    let date = created_at.toLocaleString('en-US', { timeZone: 'Asia/Manila' });
+    let time = created_at.toLocaleTimeString('en-US', { timeZone: 'Asia/Manila' });
     htmlResult += '<div class="d-flex flex-row justify-content-start">' +
                   '<img class="img-you" src="./images/img_you.webp" alt="">' +
                   '<div>' +
                     '<p class="small p-2 ms-3 mb-1 rounded-3 theme-bg-surface">' + response[count].message + '</p>' +
-                    '<p class="small ms-3 mb-3 rounded-3 text-muted">' + created_at + '</p>' +
+                    '<p class="small ms-3 mb-3 rounded-3 text-muted">' + ( isToday ? time : date ) + '</p>' +
                   '</div>' +
                 '</div>' +
                 '<div class="d-flex flex-row justify-content-end mb-4 pt-1">' +
                   '<div>' +
                     '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">' + response[count].response + '</p>' +
-                    '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + created_at + '</p>' +
+                    '<p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">' + ( isToday ? time : date ) + '</p>' +
                   '</div>' +
                   '<img class="img-junjun" src="./images/img_junjun.webp" alt="">' +
                 '</div>';

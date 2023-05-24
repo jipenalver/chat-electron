@@ -1,3 +1,4 @@
+/* Utilities */
 
 .theme-bg-surface{
     background-color: #F6F1F1 !important;
@@ -37,7 +38,7 @@
     height: 100%;
 }
 
-/* MDB-Default */
+/* Chat-Div */
 
 .div-chat .form-control {
     border-color: transparent;

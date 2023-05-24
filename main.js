@@ -84,8 +84,8 @@ const template = [
 const createWindow = () => {
   const main = new BrowserWindow({
     width: isDev ? 1200 : 800,
-    height: 850,
-    // resizable: false,
+    height: 800,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
@@ -106,7 +106,7 @@ const createWindow = () => {
 // Application Logs Window
 function logsWindow () {
   const logs = new BrowserWindow({
-    width: 1200,
+    width: 1100,
     height: 500,
     alwaysOnTop: true,
     webPreferences: {
@@ -129,10 +129,8 @@ app.whenReady().then(() => {
   // Initialize Functions
   ipcMain.handle('axios.openAI', openAI);
   ipcMain.handle('axios.backend', backend);
-
   // Create Main Window
   createWindow();
-
   // Start Window
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -152,8 +150,8 @@ app.on("window-all-closed", () => {
 // Axios OpenAI API
 async function openAI(event, conversation){
   let result = null;
-
   const env = dotenv.parsed;
+  // Axios Setup for OpenAi
   await axios({
       method: 'post',
       url: 'https://api.openai.com/v1/completions',
@@ -176,23 +174,24 @@ async function openAI(event, conversation){
     .catch(function (error) {
       result = error.response.data;
     });
-
   return result;
 }
 
 // Axios Laravel API
 async function backend(event, method, path, data = null, token = ''){
   let result = null;
-
+  // Axios Setup for Laravel Backend
   await axios({
       method: method,
       url: 'http://backend.test/api/' + path,
-      headers: ( token == '' ? { 
+      headers: ( token == '' ? 
+          { 
             'Accept': 'application/json',
-        } : {
+          }: 
+          {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + token
-        } ),
+          }),
       data: data
     }).then(function (response) {
       result = response.data;
@@ -200,6 +199,5 @@ async function backend(event, method, path, data = null, token = ''){
     .catch(function (error) {
       result = error.response.data;
     });
-
   return result;
 }
