@@ -11,6 +11,9 @@ if (btn_continue) {
     // Show Latest Chat
     const div_conversation = document.getElementById('div-conversation');
     div_conversation.scrollTo(0, div_conversation.scrollHeight);
+    // Focus Input Type Message
+    const txt_message = document.getElementById('txt_message');
+    txt_message.focus();
   }
 }
 
